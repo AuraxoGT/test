@@ -6,7 +6,7 @@ import os
 from discord.ext import commands, tasks
 import sys
 
-TOKEN = "MTMzMjM3MTIxMTU2MDQyMzU1Nw.GKKh0e.v7sBv2lhA7jmtWsR6_PiX6C1-8b3nh3TUkwoOM"
+TOKEN = "MTMzMjM3MTIxMTU2MDQyMzU1Nw.GgY-Du.A6y977GA0wZdiuCKehzPqpzNhQlF6q3S7X7zCw"
 API_URL = "https://apii-8avg.onrender.com/free-games"
 CHANNEL_ID = 1335923156132696186
 SENT_GAMES_FILE = "sent_games.json"
