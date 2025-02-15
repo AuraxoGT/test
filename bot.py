@@ -93,6 +93,7 @@ async def check_for_new_games():
 @bot.event
 async def on_ready():
     """Runs when the bot starts up."""
+    await bot.change_presence(activity=discord.Game(name="NORDRP.LT"))
     print(f"✅ Logged in as {bot.user}")
     check_for_new_games.start()  # Start the automatic loop
 
