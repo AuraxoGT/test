@@ -4,10 +4,7 @@ import asyncio
 import json
 import os
 from discord.ext import commands, tasks
-from dotenv import load_dotenv
 import sys
-# Load environment variables from .env file
-load_dotenv()
 
 TOKEN = "MTMzMjM3MTIxMTU2MDQyMzU1Nw.GSABFD.jPeIP0w_9xXEWJ3_LsnrtnL3nuRB_T7nqqspgo"
 API_URL = "https://apii-8avg.onrender.com/free-games"
