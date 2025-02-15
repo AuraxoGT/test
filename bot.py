@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 import discord
 import aiohttp
-import asyncio
 import json
 from discord.ext import commands, tasks
 
