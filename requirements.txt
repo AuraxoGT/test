@@ -1,4 +1,4 @@
 discord
 aiohttp
 asyncio
-dotenv
+python-dotenv
