@@ -6,7 +6,7 @@ from discord.ext import commands, tasks
 
 TOKEN = "MTMzMjM3MTIxMTU2MDQyMzU1Nw.GcTPpB.3xMtWVz8G7Vc-dn2QpqWOTjrUuFUGwyWTqLbbc"  # Replace with your bot token
 API_URL = "https://apii-8avg.onrender.com/free-games"  # Your FastAPI API
-CHANNEL_ID = 123456789012345678  # Replace with your Discord channel ID
+CHANNEL_ID = 1335735905914192014  # Replace with your Discord channel ID
 SENT_GAMES_FILE = "sent_games.json"  # File to store sent game IDs
 
 # Bot Setup
