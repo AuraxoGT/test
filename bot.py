@@ -1,12 +1,15 @@
+import os
+from dotenv import load_dotenv
 import discord
 import aiohttp
 import asyncio
 import json
-import os
 from discord.ext import commands, tasks
-import sys
 
-TOKEN = "MTMzMjM3MTIxMTU2MDQyMzU1Nw.GgY-Du.A6y977GA0wZdiuCKehzPqpzNhQlF6q3S7X7zCw"
+# Load environment variables
+load_dotenv()
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+
 API_URL = "https://apii-8avg.onrender.com/free-games"
 CHANNEL_ID = 1335923156132696186
 SENT_GAMES_FILE = "sent_games.json"
@@ -104,4 +107,4 @@ async def freegames(ctx):
 if TOKEN:
     bot.run(TOKEN)
 else:
-    print("❌ Error: DISCORD_BOT_TOKEN is missing! Check your .env file.")
+    print("❌ Error: DISCORD_BOT_TOKEN is missing! Check your environment variables.")
