@@ -1,17 +1,25 @@
 import os
-from dotenv import load_dotenv
+import json
 import discord
 import aiohttp
-import json
 from discord.ext import commands, tasks
+from dotenv import load_dotenv
+from fastapi import FastAPI
+import uvicorn
 
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-
 API_URL = "https://apii-8avg.onrender.com/free-games"
 CHANNEL_ID = 1335923156132696186
 SENT_GAMES_FILE = "sent_games.json"
+
+# FastAPI setup
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "API is running!"}
 
 # Bot setup
 intents = discord.Intents.default()
@@ -69,23 +77,18 @@ async def send_new_games(channel, games):
         embed.set_footer(text="Nemokami Žaidimai (Epic Games)")
 
         await channel.send(embed=embed)
-
-        # Add to sent games list
         sent_games.append(game.get("title"))
 
-    # Save updated sent games list
     save_sent_games(sent_games)
 
-@tasks.loop(minutes=60)  # Check for new games every hour
+@tasks.loop(minutes=60)
 async def check_for_new_games():
     """Automatically fetch games and send only new ones."""
     await bot.wait_until_ready()
     channel = bot.get_channel(CHANNEL_ID)
-    
     if not channel:
         print("⚠️ Invalid channel ID! Please check your .env file.")
         return
-
     games = await fetch_free_games()
     await send_new_games(channel, games)
 
@@ -94,7 +97,7 @@ async def on_ready():
     """Runs when the bot starts up."""
     await bot.change_presence(activity=discord.Game(name="NORDRP.LT"))
     print(f"✅ Logged in as {bot.user}")
-    check_for_new_games.start()  # Start the automatic loop
+    check_for_new_games.start()
 
 @bot.command(name="freegames")
 async def freegames(ctx):
@@ -103,8 +106,11 @@ async def freegames(ctx):
     games = await fetch_free_games()
     await send_new_games(ctx.channel, games)
 
-# Run the bot
-if TOKEN:
-    bot.run(TOKEN)
-else:
-    print("❌ Error: DISCORD_BOT_TOKEN is missing! Check your environment variables.")
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Render provides a PORT env variable
+    import threading
+    threading.Thread(target=lambda: uvicorn.run(app, host="0.0.0.0", port=port)).start()
+    if TOKEN:
+        bot.run(TOKEN)
+    else:
+        print("❌ Error: DISCORD_BOT_TOKEN is missing! Check your environment variables.")
